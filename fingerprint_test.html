@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Fingerprint Test</title>
+</head>
+<body>
+
+  <h1>Тест FingerprintJS</h1>
+  <p>Открой консоль браузера (F12 → Console), чтобы увидеть visitorId.</p>
+
+  <!-- Подключаем FingerprintJS -->
+  <script src="https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js"></script>
+
+  <script>
+    (async () => {
+      // Загружаем движок
+      const fp = await FingerprintJS.load();
+
+      // Получаем отпечаток
+      const result = await fp.get();
+
+      // Уникальный ID посетителя
+      const visitorId = result.visitorId;
+
+      console.log("Visitor ID:", visitorId);
+
+      // Если нужно — можно сохранить в localStorage
+      localStorage.setItem("visitorId", visitorId);
+
+      // Или отправить на сервер (пока закомментировано)
+      /*
+      fetch('/api/fingerprint', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ visitorId })
+      });
+      */
+    })();
+  </script>
+
+</body>
+</html>
